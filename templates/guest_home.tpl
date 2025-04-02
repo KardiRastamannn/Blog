@@ -45,9 +45,18 @@
                 <h2 class="mb-0">
                     <i class="fas fa-blog me-2"></i>Blog
                 </h2>
-                <a href="/login.php" class="btn btn-outline-success">
-                    <i class="fas fa-user me-2"></i>Admin
-                </a>
+                {if isset($user)}
+                    <div class="d-flex align-items-center">
+                        <span class="me-3">Üdvözöllek, {$user.email}!</span>
+                        <a href="/logout.php" class="btn btn-outline-danger">
+                            <i class="fas fa-sign-out-alt me-2"></i>Kijelentkezés
+                        </a>
+                    </div>
+                {else}
+                    <a href="/login.php" class="btn btn-outline-success">
+                        <i class="fas fa-user me-2"></i>Admin
+                    </a>
+                {/if}
             </div>
 
             <div class="row">

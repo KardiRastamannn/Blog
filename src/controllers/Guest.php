@@ -4,6 +4,8 @@ namespace Blog\Controllers;
 use Blog\Core\Connection;
 use Blog\Controllers\Post;
 use Smarty;
+use Blog\controllers\Auth;
+
 class Guest
 {
     private Post $postModel;
@@ -12,6 +14,7 @@ class Guest
     public function __construct(Connection $Connection)
     {
         $this->postModel = new Post($Connection);
+        $this->authModel = new Auth($Connection);
         $this->smarty = new Smarty();
         $this->smarty->setTemplateDir(__DIR__ . '/../../templates');
         $this->smarty->setCompileDir(__DIR__ . '/../../templates_c');
@@ -20,6 +23,8 @@ class Guest
     public function showHomePage()
     {
         $posts = $this->postModel->getPublishedPosts();
+        $user = $this->authModel->getUser();
+        $this->smarty->assign('user', $user);
         $this->smarty->assign('posts', $posts);
         $this->smarty->display('guest_home.tpl');
     }
